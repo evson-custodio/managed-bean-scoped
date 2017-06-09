@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <h1>Index</h1>
+            <h:panelGrid columns="3">
+                <h:outputLabel value="Escopo de Requisição:"></h:outputLabel>
+                <h:inputText value="#{beanRequest.nome}"></h:inputText>
+                <h:outputLabel id="request" value="Escopo de Requisição: #{beanRequest.nome}"></h:outputLabel>
+                
+                <h:outputLabel value="Escopo de Visão:"></h:outputLabel>
+                <h:inputText value="#{beanView.nome}"></h:inputText>
+                <h:outputLabel id="view" value="Escopo de Visão: #{beanView.nome}"></h:outputLabel>
+                
+                <h:outputLabel value="Escopo de Sessão:"></h:outputLabel>
+                <h:inputText value="#{beanSession.nome}"></h:inputText>
+                <h:outputLabel id="session" value="Escopo de Sessão: #{beanSession.nome}"></h:outputLabel>
+                
+                <h:outputLabel value="Escopo de Aplicação:"></h:outputLabel>
+                <h:inputText value="#{beanApplication.nome}"></h:inputText>
+                <h:outputLabel id="application" value="Escopo de Aplicação: #{beanApplication.nome}"></h:outputLabel>
+            </h:panelGrid>
+            
+            <h:panelGrid columns="1">
+                <h:commandButton value="Encaminhar para /index.xhtml" action="/index.xhtml"></h:commandButton>
+                <h:commandButton value="Redirecionar para /index.xhtml" action="/index.xhtml?faces-redirect=true"></h:commandButton>
+                <h:commandButton value="Encaminhar para /resultado.xhtml" action="/resultado.xhtml"></h:commandButton>
+                <h:commandButton value="Redirecionar para /resultado.xhtml" action="/resultado.xhtml?faces-redirect=true"></h:commandButton>
+                <h:commandButton value="AJAX!" action="#{beanRequest.ajax()}">
+                    <f:ajax execute="@form" render="@form"></f:ajax>
+                </h:commandButton>
+            </h:panelGrid>
+            <ul type="circle">
+                <li>
+                    <h2>RequestScoped</h2>
+                    <p>
+                        O Escopo é destruído ao fazer uma requisição na página e reconstruído logo em seguida<br></br>
+                        Seja ela de um recurso como por exemplo executando um AJAX.
+                    </p>
+                </li>
+                <li>
+                    <h2>ViewScoped</h2>
+                    <p>
+                        O Escopo é destruído ao fazer uma requisição para qualquer página<br></br>
+                        Ele não morre para requisições pra mesma página usando AJAX<br></br>
+                        (Use uma função void ou que retorne null no action do AJAX).<br></br>
+                        Deve implementar Serializable
+                    </p>
+                </li>
+                <li>
+                    <h2>SessionScoped</h2>
+                    <p>
+                        O Escopo é destruído ao fechar o navegador, ele não morre para nenhuma requisição.<br></br>
+                        Deve implementar Serializable
+                    </p>
+                </li>
+                <li>
+                    <h2>ApplicationScoped</h2>
+                    <p>
+                        O Escopo é destruído ao parar o servidor, ele não morre para nenhuma requisição.
+                    </p>
+                </li>
+            </ul>
+        </h:form>
+    </h:body>
+</html>
+
+
